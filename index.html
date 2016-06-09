@@ -10,7 +10,10 @@
     <form>
       <input type="text" id="age" placeholder="Age">
       <input type="text" id="distance" placeholder="Distance(meter)">
-      <input type="text" id="gender" placeholder="Gender">
+      <select id="gender">
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+      </select>
       <input type="button" id="calculate" value="Calculate">
     </form>
     <div>
@@ -24,7 +27,6 @@
           var age = parseInt($('#age').val());
           var distance = parseInt($('#distance').val());
           var gender = $('#gender').val();
-          alert(gender);
           var person = new Person({age: age, gender: gender});
           person.calculateVmax(person, distance);
           $('#display_value').html('Your Vmax is ' + person.vmax);
