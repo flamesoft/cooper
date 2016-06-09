@@ -27,4 +27,14 @@ describe("Person", function() {
     expect(person.message).toEqual("Excellent");
   });
 
+  it("give age group", function(){
+    var age = getAgeGroup(18);
+    expect(age).toEqual(2);
+  });
+
+  it("gives distance group", function(){
+    var distanceGroup = getDistanceGroup(1200, [2400,2000,1600,1300]);
+    expect(distanceGroup).toEqual(4);
+  });
+
 });

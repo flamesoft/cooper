@@ -12,7 +12,7 @@ var femaleTable = [[2000,1900,1600,1500],
                   [2500,2000,1700,1400],
                   [2300,1900,1500,1200],
                   [2200,1700,1400,1100]];
-var messages = ["Excellent", "Very good", "Good", "Average", "Bad", "Very bad"];
+var messages = ["Excellent", "Above Average", "Average", "Below Average", "Poor"];
 var ages = [13,15,17,20,30,40,50];
 
 function Person(attr) {
@@ -22,12 +22,48 @@ function Person(attr) {
 
 Person.prototype.calculateVmax = function(obj, distance) {
   obj.vmax = (distance - 504.9)/44.73;
-  setVmaxMessage(obj);
+  setVmaxMessage(obj, distance);
 };
 
-function setVmaxMessage(obj){
+function setVmaxMessage(obj, distance){
   var gender = obj.gender;
-  var age = obj.age;
   var vmax = obj.vmax;
-  obj.message = "Excellent";
+  var ageGroup = getAgeGroup(obj.age);
+  if(ageGroup < 0){
+    obj.message = "You are under age 13. There is no result";
+  }
+  else{
+    var table = maleTable;
+    if(gender == "Female"){
+      table = femaleTable;
+    }
+    var ranges = table[ageGroup];
+    var distanceGroup = getDistanceGroup(distance, ranges);
+    obj.message = messages[distanceGroup];
+  }
+}
+
+function getAgeGroup(age){
+  for(i = 0; i< ages.length -1; i++){
+    if(ages[i] > age){
+      return -1;
+    }
+    if(age < ages[i+1] && age >= ages[i]){
+      return i;
+    }
+  }
+}
+
+//Give the distance and the array of ranges,
+//return the distance group index
+function getDistanceGroup(distance, ranges){
+  if(distance >= ranges[0]){
+    return 0;
+  }
+  for(i = 0; i< ranges.length -1; i++){
+    if(distance >= ranges[i+1] && distance < ranges[i]){
+      return i + 1;
+    }
+  }
+  return i + 1;
 }
