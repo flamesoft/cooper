@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src='https://code.jquery.com/jquery-2.1.4.js'></script>
+    <script src="src/cooper.js"></script>
+  </head>
+  <body>
+    <form>
+      <input type="text" id="age" placeholder="Age">
+      <input type="text" id="distance" placeholder="Distance(meter)">
+      <input type="text" id="gender" placeholder="Gender">
+      <input type="button" id="calculate" value="Calculate">
+    </form>
+    <div>
+      <span id="display_value"></span>
+      <span id="display_message"></span>
+
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#calculate').click(function () {
+          var age = parseInt($('#age').val());
+          var distance = parseInt($('#distance').val());
+          var gender = $('#gender').val();
+          alert(gender);
+          var person = new Person({age: age, gender: gender});
+          person.calculateVmax(person, distance);
+          $('#display_value').html('Your Vmax is ' + person.vmax);
+          $('#display_message').html('and you are '+ person.message);
+        });
+      });
+    </script>
+  </body>
+</html>
